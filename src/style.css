@@ -1,0 +1,94 @@
+:root {
+  --green: #3cb043;
+  --bg: #f4f6f0;
+  --text: #2d3a2e;
+}
+
+* { box-sizing: border-box; }
+
+html, body {
+  margin: 0;
+  height: 100%;
+  background: var(--bg);
+  color: var(--text);
+  font-family: system-ui, sans-serif;
+  overscroll-behavior: none;
+  touch-action: none;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+  padding: env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left);
+}
+
+header, footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 16px;
+  font-weight: 600;
+  font-size: 1.1rem;
+}
+
+footer { justify-content: center; }
+
+main {
+  flex: 1;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 0;
+  padding: 0 16px;
+}
+
+canvas { display: block; }
+
+button {
+  font: inherit;
+  font-size: 1rem;
+  padding: 10px 14px;
+  border: none;
+  border-radius: 12px;
+  background: white;
+  color: var(--text);
+  box-shadow: 0 2px 6px rgb(0 0 0 / 0.12);
+  cursor: pointer;
+}
+
+button:active { transform: translateY(1px); }
+button:disabled { opacity: 0.35; cursor: default; }
+
+#overlay {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgb(244 246 240 / 0.75);
+}
+
+#overlay[hidden] { display: none; }
+
+.card {
+  background: white;
+  padding: 24px 32px;
+  border-radius: 20px;
+  text-align: center;
+  box-shadow: 0 8px 24px rgb(0 0 0 / 0.15);
+}
+
+.card { max-width: min(360px, calc(100vw - 32px)); }
+
+#stars { padding: 6px 10px; }
+
+@media (max-width: 480px) {
+  header { font-size: 0.9rem; padding: 10px 12px; }
+}
+
+.card h2 { margin: 0 0 8px; color: var(--green); }
+.card button { background: var(--green); color: white; margin-top: 8px; }

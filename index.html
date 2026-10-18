@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, user-scalable=no">
+  <meta name="theme-color" content="#3cb043">
+  <title>Bloby</title>
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="icon" href="icon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="icon-192.png">
+  <link rel="stylesheet" href="/src/style.css">
+</head>
+<body>
+  <header>
+    <span id="level-label">Level 1</span>
+    <button id="stars">⭐ 0 / 20</button>
+    <span id="moves-label">Züge: 0</span>
+  </header>
+  <main>
+    <canvas id="board"></canvas>
+    <div id="overlay" hidden>
+      <div class="card">
+        <h2 id="overlay-title">Geschafft!</h2>
+        <p id="overlay-text"></p>
+        <button id="overlay-button">Weiter</button>
+      </div>
+    </div>
+  </main>
+  <footer>
+    <button id="prev" aria-label="Vorheriges Level">◀</button>
+    <button id="undo">Zurück</button>
+    <button id="restart">Neu starten</button>
+    <button id="next" aria-label="Nächstes Level">▶</button>
+  </footer>
+  <script type="module" src="/src/main.js"></script>
+</body>
+</html>
