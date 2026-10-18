@@ -86,7 +86,9 @@ function updateHud() {
     ? `❄️ Bonus ${levelIndex - levels.length + 1} / ${bonusLevels.length}${star}`
     : `Level ${levelIndex + 1} / ${levels.length}${star}`;
   movesLabel.textContent = `Züge: ${state.moves} · Ziel: ${par(levelIndex)}`;
-  starsButton.textContent = `⭐ ${mainStars()} / ${levels.length}`;
+  starsButton.textContent = mainStars() < STARS_FOR_BONUS
+    ? `⭐ ${mainStars()} / ${STARS_FOR_BONUS}`
+    : `⭐ ${mainStars()}`;
   prevButton.disabled = levelIndex === 0;
   nextButton.disabled = levelIndex >= Math.min(unlocked, lastPlayable());
 }
