@@ -4,10 +4,11 @@ self.addEventListener('install', () => self.skipWaiting());
 self.addEventListener('activate', (e) => e.waitUntil(self.clients.claim()));
 
 // Erst das Netz fragen, damit Updates sofort ankommen; offline aus dem Cache spielen.
+// 'no-cache' umgeht die 10 Minuten, die GitHub Pages Dateien im Browser-Cache erlaubt.
 self.addEventListener('fetch', (e) => {
   if (e.request.method !== 'GET') return;
   e.respondWith(
-    fetch(e.request)
+    fetch(e.request.url, { cache: 'no-cache' })
       .then((res) => {
         const copy = res.clone();
         caches.open(CACHE).then((c) => c.put(e.request, copy));

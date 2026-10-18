@@ -230,7 +230,9 @@ window.addEventListener('touchend', (e) => {
   else tryMove(dy > 0 ? 'down' : 'up');
 });
 
-window.addEventListener('resize', resize);
+// Beobachtet den Spielbereich statt des Fensters: Installierte iOS-Apps bekommen ihre
+// endgültige Höhe oft erst nach dem Start, ohne dass ein resize-Ereignis kommt.
+new ResizeObserver(() => state && resize()).observe(canvas.parentElement);
 
 function lerp(a, b, t) {
   return { x: a.x + (b.x - a.x) * t, y: a.y + (b.y - a.y) * t };
@@ -269,4 +271,22 @@ requestAnimationFrame(frame);
 
 if ('serviceWorker' in navigator && import.meta.env.PROD) {
   navigator.serviceWorker.register('sw.js');
+}
+
+// iOS holt eine installierte App aus dem Speicher, ohne sie neu zu laden.
+// Daher beim Zurückkehren prüfen, ob online eine neuere Version liegt.
+async function reloadIfOutdated() {
+  try {
+    const html = await (await fetch(location.href, { cache: 'no-cache' })).text();
+    const script = document.querySelector('script[type="module"]').getAttribute('src');
+    if (!html.includes(script)) location.reload();
+  } catch {
+    // Offline: mit der vorhandenen Version weiterspielen.
+  }
+}
+
+if (import.meta.env.PROD) {
+  document.addEventListener('visibilitychange', () => {
+    if (document.visibilityState === 'visible') reloadIfOutdated();
+  });
 }
